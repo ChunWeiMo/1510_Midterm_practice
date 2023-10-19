@@ -1,7 +1,4 @@
 """
-Define a function called is_valid_parity. It accepts two strings. The first is called codeword
-and the second is called parity.
-
 The is_valid_parity function returns True if codeword is parity-encoded correctly. If it
 is not, the function returns False.
 
@@ -46,3 +43,49 @@ Prove your function works in the docstring with these doctests:
 
 No main function is required.
 """
+from unittest import TestCase
+
+
+def is_valid_parity(codeword: str, parity: str):
+   prepend = int(codeword[0])
+   number = list(codeword[1:])
+   for i in range(len(number)):
+      number[i] = int(number[i])
+   # print(prepend, number)
+   
+   sum_prepend_and_number=prepend+sum(number)
+   # print("sum_prepend_and_number=", sum_prepend_and_number)
+   if sum_prepend_and_number%2==0 and parity == "EVEN":
+      is_valid_parity = True
+   elif sum_prepend_and_number%2==0 and parity == "ODD":
+      is_valid_parity = False
+   elif sum_prepend_and_number%2==1 and parity == "ODD":
+      is_valid_parity = True
+   elif sum_prepend_and_number%2==1 and parity == "EVEN":
+      is_valid_parity = False
+   else:
+      print("bug")
+      
+   return is_valid_parity
+
+def main():
+   codeword = "1011"
+   parity = "ODD"
+   print(is_valid_parity(codeword, parity))
+
+   print("101", "EVEN", is_valid_parity("101", "EVEN"))  # returns True
+   print("11", "EVEN",is_valid_parity("11", "EVEN")) #returns True
+   print("111111111100000000001010110101", "EVEN", is_valid_parity(
+       "111111111100000000001010110101", "EVEN"))  # returns True
+   print("10", "ODD", is_valid_parity("10", "ODD"))  # returns True
+   print("111", "ODD", is_valid_parity("111", "ODD"))  # returns True
+   print("1111111111000011111000001010110101", "ODD",is_valid_parity("1111111111000011111000001010110101", "ODD")) #returns True
+   print("111", "EVEN",is_valid_parity("111", "EVEN")) #returns False
+   print("11111111100000000001010110101", "EVEN",is_valid_parity("11111111100000000001010110101", "EVEN"))# returns False
+   print("11", "ODD",is_valid_parity("11", "ODD")) #returns False
+   print("101", "ODD",is_valid_parity("101", "ODD")) #returns False
+   print("11111111111000011111000001010110101", "ODD", is_valid_parity(
+       "11111111111000011111000001010110101", "ODD"))  # returns False""
+
+if __name__ == "__main__":
+   main()
